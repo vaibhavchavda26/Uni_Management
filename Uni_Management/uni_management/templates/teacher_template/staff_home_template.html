@@ -1,0 +1,70 @@
+{% extends 'teacher_template/base_template.html' %}
+
+{% block page_title %}
+    Teacher Home
+{% endblock page_title %}
+
+{% block main_content %}
+
+
+<section class="content">
+        <div class="container-fluid">
+
+            {% comment %} Boxes Section Starts {% endcomment %}
+            <div class="row">
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-info">
+                    <div class="inner">
+                        <h3>{{ students_count }}</h3>
+
+                        <p>Students Under Me</p>
+                    </div>
+                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{ attendance_count }}</h3>
+
+                        <p>Total Attendance Taken</p>
+                    </div>
+                    <a href="{% url 'staff_take_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{ leave_count }}</h3>
+
+                        <p>Total Leave Taken</p>
+                    </div>
+                    <a href="{% url 'staff_apply_leave' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                <div class="col-lg-3 col-6">
+                    <!-- small box -->
+                    <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>{{ subject_count }}</h3>
+
+                        <p>Total Subjects</p>
+                    </div>
+                    <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                <!-- ./col -->
+                </div>
+            {% comment %} Boxes Section Ends {% endcomment %}
+            
+
+        </div><!-- /.container-fluid -->
+      </section>
+
+  {% endblock main_content %}

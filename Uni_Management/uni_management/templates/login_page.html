@@ -1,0 +1,54 @@
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+	<a class="navbar-brand" href="/ ">BACK TO HOME</a>
+	
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+		</ul>
+		<form class="form-inline my-2 my-lg-0">
+			
+			<a href="{% url 'contact' %}" class="btn btn-outline-danger my-1 mx-2">Contact Us</a>
+		</form>
+<!--		<form class="form-inline my-2 my-lg-0">-->
+	</div>
+</nav>
+
+<div class="login-dark form-inline py-0 mx-4 my-4 pl-4 pr-4">
+	
+	<form action="{% url 'doLogin' %}" method="get">
+		{% csrf_token %}
+		<h1 class="text-center">Login</h1>
+	
+		
+		<div class="form-group"><input class="form-control mb-2" type="email" name="email" placeholder="Email"></div><br>
+		<div class="form-group"><input class="form-control mb-2" type="password" name="password" placeholder="Password"></div><br>
+
+		
+		
+		<div class="form-group"><button class="btn btn-primary btn-block mb-2 ml-2" type="submit">Log In</button></div><br>
+		<a href="/registration" class="forgot">Not Registered Yet? Register Now</a>
+	</form>
+</div>
+
+{% comment %} Display Messages {% endcomment %}
+{% if messages %}
+<div class="col-12">
+	{% for message in messages %}
+	{% if message.tags == "error" %}
+	{% comment %} <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+		<b>{{ message }}</b>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+	</div> {% endcomment %}
+
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <strong>Invalid Login Credentials!</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+	{% endif %}
+	{% endfor %}
+</div>
+{% endif %}
+

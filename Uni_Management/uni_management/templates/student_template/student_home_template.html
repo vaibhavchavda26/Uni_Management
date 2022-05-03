@@ -1,0 +1,77 @@
+{% extends 'student_template/base_template.html' %}
+
+{% block page_title %}
+Student Home
+{% endblock page_title %}
+
+{% block main_content %}
+
+{% load static %}
+
+<section class="content">
+	<div class="container-fluid">
+		
+		{% comment %} Boxes Section Starts {% endcomment %}
+		<div class="row">
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>{{ total_attendance }}</h3>
+						
+						<p>Total Attendance</p>
+					</div>
+					<a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			
+			
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-success">
+					<div class="inner">
+						<h3>{{ attendance_absent }}</h3>
+						<p>Absent</p>
+					</div>
+					<a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			
+			
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-warning">
+					<div class="inner">
+						<h3>{{ attendance_present }}</h3>
+						<p>Present</p>
+					</div>
+					<a href="{% url 'student_view_attendance' %}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			
+			
+			<!-- ./col -->
+			<div class="col-lg-3 col-6">
+				<!-- small box -->
+				<div class="small-box bg-danger">
+					<div class="inner">
+						<h3>{{ total_subjects }}</h3>
+						<p>Total Subjects</p>
+					</div>
+					<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+				</div>
+			</div>
+			
+			
+			<!-- ./col -->
+		</div>
+		{% comment %} Boxes Section Ends {% endcomment %}
+		</div>
+	
+	</div><!-- /.container-fluid -->
+</section>
+
+
+{% endblock main_content %}

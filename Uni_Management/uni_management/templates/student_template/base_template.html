@@ -1,0 +1,82 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Student Management System | Student Dashboard</title>
+
+</head>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+  <div class="wrapper">
+
+    <nav>
+      <h4 style="margin-left: 10px; margin-top: 5px;">Student Management System | Student Dashboard</h4>
+
+      <ul class="navbar-nav ml-auto"> {% comment %} used to place the settings icon at right corner {% endcomment %}
+        
+      
+      <!-- Notifications Dropdown Menu -->
+      <li class="nav-item dropdown">
+        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="fas fa-cog"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+          
+          <a href="{% url 'student_profile' %}" class="dropdown-item">
+            <i class="fas fa-user-edit mr-2"></i> Update Profile
+          </a>
+
+          <div class="dropdown-divider"></div> <br>   {% comment %} line between two dropdown option {% endcomment %}
+          <a href="{% url 'logout_user' %}" class="dropdown-item">
+            <i class="fas fa-power-off mr-2"></i> Logout
+          </a> 
+          <div class="dropdown-divider"></div>
+        </div>
+      </li>
+    </ul>
+
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    {% include 'student_template/sidebar_template.html' with user=user id=id %}
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">    {% comment %}  It simply holds all visual elements and content on the page. {% endcomment %}
+
+    <!-- Content Header (Page header) -->
+     <div class="content-header"> 
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">
+                {% block page_title %}
+                {% endblock page_title %}
+              </h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6"> 
+                    {% comment %} putting home button at right border {% endcomment %}
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="{% url 'student_home' %}">Home</a></li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      {% block main_content %}
+      {% endblock main_content %}
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+  </div>
+  <!-- ./wrapper -->
+
+</body>
+</html>

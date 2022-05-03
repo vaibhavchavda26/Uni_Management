@@ -1,0 +1,48 @@
+
+ <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                    <a class="navbar-brand" href="/ "><h4>BACK TO HOME</h4></a>
+                   
+                  
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="navbar-nav mr-auto">
+                      
+                      
+                      </ul>
+                      <form class="form-inline my-2 my-lg-0">
+
+          <a href="/login" class="btn btn-outline-success my-1 mx-2">Login Here</a><br><br>
+	    	  <a href="/contact" class="btn btn-outline-danger my-1 mx-2">Contact Us</a>
+                     
+          </form>
+          </div>
+        </nav>
+
+
+    <div class="login-dark form-inline py-0 mx-4 my-4 pl-4 pr-4">
+         <form action="{% url 'doRegistration' %}" method="get">
+			{% csrf_token %}
+
+		<h1 class="text-center">Signup</h1>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+			 <div class="form-group"><input class="form-control mb-2" type="text" name="first_name" placeholder="First Name"></div><br>
+            <div class="form-group"><input class="form-control mb-2" type="text" name="last_name" placeholder="Last Name"></div><br>
+
+            <div class="form-group"><input class="form-control mb-2" type="email" name="email" placeholder="Email"></div><br>
+            <div class="form-group"><input class="form-control mb-2" type="password" name="password" placeholder="Password"></div><br>
+			<div class="form-group"><input class="form-control mb-2" type="password" name="confirmPassword" placeholder="Confirm Password"></div><br>
+            <div class="form-group"><button class="btn btn-primary btn-block mt-2 ml-2" type="submit">Register</button></div></form><br>
+    </div>
+ {% comment %} Display Messages {% endcomment %}
+          {% if messages %}
+          <div class="col-12">
+            {% for message in messages %}
+              {% if message.tags == "error" %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+                  <b>{{ message }}</b>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                </div>
+              {% endif %}
+            {% endfor %}
+          </div>
+          {% endif %}
