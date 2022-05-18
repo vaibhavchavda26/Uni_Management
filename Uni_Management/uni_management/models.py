@@ -1,8 +1,8 @@
+from pyexpat import model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-
 
 
 class SessionYearModel(models.Model):
@@ -10,7 +10,6 @@ class SessionYearModel(models.Model):
 	session_start_year = models.DateField()
 	session_end_year = models.DateField()
 	objects = models.Manager()
-
 
 
 # Overriding the Default Django Auth
@@ -32,7 +31,8 @@ class User(AbstractUser):
 
 class Principal(models.Model):
 	id = models.AutoField(primary_key=True)
-	admin = models.OneToOneField(User, on_delete = models.CASCADE)
+	admin = models.ForeignKey(User, related_name='Principal', on_delete=models.CASCADE)
+	#admin = models.OneToOneField(User, on_delete = models.CASCADE)
 	created_at = models.DateTimeField(auto_now_add=True)
 	updated_at = models.DateTimeField(auto_now=True)
 	objects = models.Manager()
@@ -206,8 +206,8 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
 	if instance.user_type == 1:
-		instance.adminhod.save()
+		instance.principal.save()
 	if instance.user_type == 2:
-		instance.staffs.save()
+		instance.teacher.save()
 	if instance.user_type == 3:
-		instance.students.save()
+		instance.student.save()

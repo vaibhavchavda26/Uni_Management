@@ -4,7 +4,59 @@ from django.contrib import messages
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse
 import datetime
-from .models import User, Teachers, Courses, Subjects, Students, Attendance, AttendanceReport, LeaveReportStudent, FeedBackStudent, StudentResult
+from .models import User, Courses, Subjects, Students, Attendance, AttendanceReport, LeaveReportStudent, FeedBackStudent, StudentResult
+
+
+#rest_framework
+
+from .serializers import StudentSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+
+class List(APIView):
+	def get(self, request, pk=None, format=None):
+		id = pk
+		if id is not None:
+			students = Students.objects.get(id=id)
+			serializer = StudentSerializer(students)
+			return Response(serializer.data)
+
+		students = Students.objects.all()
+		serializer = StudentSerializer(students, many = True)
+		return Response(serializer.data)
+
+	def post(self, request, format=None):
+		serializer = StudentSerializer(data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Data created'}, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def put(self, request, pk, format=None):
+		id = pk
+		students = Students.objects.get(pk=id)
+		serializer = StudentSerializer(students, data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Complete Data Updated'})
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def patch(self, request, pk, format=None):
+		id = pk
+		students = Students.objects.get(pk=id)
+		serializer = StudentSerializer(students, data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Partial Data Updated'})
+		return Response(serializer.errors)
+
+	def delete(self, request, pk, format=True):
+		id = pk
+		students = Students.objects.get(pk=id)
+		students.delete()
+		return Response({'msg': 'Data Deleted'})
+
 
 def student_home(request):
 

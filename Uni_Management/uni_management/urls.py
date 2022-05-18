@@ -4,15 +4,18 @@ from . import views
 from .import principal_view, teacher_view, student_view
 
 urlpatterns = [
-	path('', views.index, name="index"),
-	path('contact', views.contact, name="contact"),
-	path('login/', views.loginUser, name="login"),
-	path('logout_user', views.logout_user, name="logout_user"),
-	path('registration', views.registration, name="registration"),
-	path('doLogin', views.doLogin, name="doLogin"),
-	path('doRegistration', views.doRegistration, name="doRegistration"),
+	path('index', views.Index.as_view(), name="index"),
+	path('contact', views.Contact.as_view(), name="contact"),
+	path('login/', views.DoLogin.as_view(), name="login"),
+	path('logout_user', views.Logout.as_view(), name="logout_user"),
+	path('registration', views.Registration.as_view(), name="registration"),
+	path('doLogin', views.DoLogin.as_view(), name="doLogin"),
+	path('doRegistration', views.DoRegistration.as_view(), name="doRegistration"),
+	path('api/', views.List.as_view()),
+	path('api/<int:pk>/', views.List.as_view()),
 	
 	# URLS for Student
+	path('api/', student_view.List.as_view()),
 	path('student_home/', student_view.student_home, name="student_home"),
 	path('student_view_attendance/', student_view.student_view_attendance, name="student_view_attendance"),
 	path('student_view_attendance_post/', student_view.student_view_attendance_post, name="student_view_attendance_post"),
@@ -26,6 +29,8 @@ urlpatterns = [
 
 
 	# URLS for Staff
+	path('api/', teacher_view.List.as_view()),
+	path('staffapi/<int:pk>/', teacher_view.List.as_view()),
 	path('staff_home/', teacher_view.staff_home, name="staff_home"),
 	path('staff_take_attendance/', teacher_view.staff_take_attendance, name="staff_take_attendance"),
 	path('get_students/', teacher_view.get_students, name="get_students"),
@@ -44,7 +49,9 @@ urlpatterns = [
 	path('staff_add_result_save/', teacher_view.staff_add_result_save, name="staff_add_result_save"),
 	
 	# URL for Admin
-	path('admin_home/', principal_view.admin_home, name="admin_home"),
+	path('api/', principal_view.List.as_view()),
+	path('api/<int:pk>/', principal_view.List.as_view()),
+	path('admin_home/', principal_view.AdminHome.as_view()),
 	path('add_staff/', principal_view.add_staff, name="add_staff"),
 	path('add_staff_save/', principal_view.add_staff_save, name="add_staff_save"),
 	path('manage_staff/', principal_view.manage_staff, name="manage_staff"),

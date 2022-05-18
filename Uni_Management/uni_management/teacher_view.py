@@ -10,6 +10,56 @@ import json
 
 from .models import User, Teachers, Courses, Subjects, Students, SessionYearModel, Attendance, AttendanceReport, LeaveReportStaff, FeedBackStaffs, StudentResult
 
+#rest_framework
+
+from .serializers import TeacherSerializer
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+
+class List(APIView):
+	def get(self, request, pk=None, format=None):
+		id = pk
+		if id is not None:
+			teachers = Teachers.objects.get(id=id)
+			serializer = TeacherSerializer(teachers)
+			return Response(serializer.data)
+
+		teachers = Teachers.objects.all()
+		serializer = TeacherSerializer(teachers, many = True)
+		return Response(serializer.data)
+
+	def post(self, request, format=None):
+		serializer = TeacherSerializer(data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Data created'}, status=status.HTTP_201_CREATED)
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def put(self, request, pk, format=None):
+		id = pk
+		teachers = Teachers.objects.get(pk=id)
+		serializer = TeacherSerializer(teachers, data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Complete Data Updated'})
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def patch(self, request, pk, format=None):
+		id = pk
+		teachers = Teachers.objects.get(pk=id)
+		serializer = TeacherSerializer(teachers, data = request.data)
+		if serializer.is_valid():
+			serializer.save()
+			return Response({'msg':'Partial Data Updated'})
+		return Response(serializer.errors)
+
+	def delete(self, request, pk, format=True):
+		id = pk
+		teachers = Teachers.objects.get(pk=id)
+		teachers.delete()
+		return Response({'msg': 'Data Deleted'})
+
 
 def staff_home(request):
 
